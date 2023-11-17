@@ -1,0 +1,14 @@
+{
+  "name": "71371c36986a0a7c",
+  "main": "71371c36986a0a7c@38.js",
+  "version": "38.0.0",
+  "homepage": "https://observablehq.com/d/71371c36986a0a7c",
+  "author": {
+    "name": "deng's Workspace",
+    "url": "https://observablehq.com/@deng1876888692-ws"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4 - 5"
+  }
+}
