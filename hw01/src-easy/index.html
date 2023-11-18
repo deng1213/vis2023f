@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random CSV Generator</title>
+    <style type="text/css">
+        table, th, td {
+            border: 1px solid blue;
+            margin: 10px auto;
+            padding: 1px 3px;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        function createArray(length) {
+            var arr = new Array(length || 0),
+                i = length;
+
+            if (arguments.length > 1) {
+                var args = Array.prototype.slice.call(arguments, 1);
+                while (i--) 
+                    arr[length-1 - i] = createArray.apply(this, args);
+            }
+
+            return arr;
+        }
+
+        function getRandomClass() {
+            var classes = ['資工系', '資工所', '電資AI', '電資資安', '創新AI'];
+            return classes[Math.floor(Math.random() * classes.length)];
+        }
+
+        function generateRandomCSV() {
+            // Remove existing table and download button if they exist
+            d3.select("table").remove();
+            d3.select("#downloadButton").remove();
+
+            var a3 = createArray(121, 15);
+
+            a3[0] = ['序號', '班級', '學號', '姓名', 'GitHub', '作業一', '作業二', '作業三', '作業四', '作業五', '作業六', '作業七', '作業八', '作業九', '作業十'];
+
+            for (var i = 1; i <= 120; i++) {
+                a3[i][0] = i;
+                a3[i][1] = getRandomClass();
+                a3[i][2] = 112598000 + Math.floor(Math.random() * 999);
+                a3[i][3] = String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00)) +
+                           String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00)) +
+                           String.fromCharCode(Math.floor(Math.random() * 0x51ff + 0x4e00));
+                a3[i][4] = (Math.random() + 1).toString(36).substring(2);
+
+                for (var j = 5; j < a3[0].length; j++) {
+                    a3[i][j] = Math.floor(Math.random() * 10);
+                }
+            }
+
+            // Show the download button above the generated table
+            var downloadButton = document.createElement('button');
+            downloadButton.id = 'downloadButton';
+            downloadButton.textContent = 'Download The CSV';
+            downloadButton.addEventListener('click', function() {
+                downloadCSVFile(a3);
+            });
+            document.body.appendChild(downloadButton);
+
+            // Create a table using D3.js
+            var table = d3.select("body").append("table");
+            var thead = table.append("thead");
+            var tbody = table.append("tbody");
+
+            // Append header row
+            thead.append("tr")
+                .selectAll("th")
+                .data(a3[0])
+                .enter().append("th")
+                .text(function(d) { return d; });
+
+            // Append data rows
+            var rows = tbody.selectAll("tr")
+                .data(a3.slice(1))
+                .enter().append("tr")
+                .selectAll("td")
+                .data(function(d) { return d; })
+                .enter().append("td")
+                .text(function(d) { return d; });
+        }
+
+        function downloadCSVFile(data) {
+            // Create CSV file object and feed our data into it
+            var CSVFile = new Blob([data.map(row => row.join(',')).join('\n')], {
+                type: 'text/csv'
+            });
+
+            // Create a temporary link to initiate the download process
+            var tempLink = document.createElement('a');
+
+            // Download csv file
+            tempLink.download = 'random_data.csv';
+            var url = window.URL.createObjectURL(CSVFile);
+            tempLink.href = url;
+
+            // This link should not be displayed
+            tempLink.style.display = 'none';
+            document.body.appendChild(tempLink);
+
+            // Automatically click the link to trigger download
+            tempLink.click();
+            document.body.removeChild(tempLink);
+        }
+    </script>
+
+    <button type="button" onclick="generateRandomCSV()">
+        Generate Random CSV
+    </button>
+    <br>
+</body>
+</html>
