@@ -1,0 +1,14 @@
+{
+  "name": "a3c1bd23d82fd601",
+  "main": "a3c1bd23d82fd601@32.js",
+  "version": "32.0.0",
+  "homepage": "https://observablehq.com/d/a3c1bd23d82fd601",
+  "author": {
+    "name": "deng's Workspace",
+    "url": "https://observablehq.com/@deng1876888692-ws"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4 - 5"
+  }
+}

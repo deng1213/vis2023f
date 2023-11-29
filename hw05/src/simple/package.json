@@ -1,0 +1,14 @@
+{
+  "name": "50ccd4278e239c53",
+  "main": "50ccd4278e239c53@59.js",
+  "version": "59.0.0",
+  "homepage": "https://observablehq.com/d/50ccd4278e239c53",
+  "author": {
+    "name": "deng's Workspace",
+    "url": "https://observablehq.com/@deng1876888692-ws"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4 - 5"
+  }
+}
